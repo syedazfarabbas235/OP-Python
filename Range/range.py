@@ -26,8 +26,8 @@ class Range:
          if step == 0:
             raise ValueError("step cannot be 0")  # step must move forward or backward
 
-         if stop is None:        # if only one argument is given → treat as range(0, start)
-           # User called Range(n), meaning start should be 0 and stop should be n
+         if stop is None:        """ if only one argument is given → treat as range(0, start)"""
+           """ User called Range(n), meaning start should be 0 and stop should be n"""
           stop = start   # move the given number into stop
           start = 0      # reset start to 0
 
@@ -37,8 +37,16 @@ class Range:
         # length calculation (handle positive and negative steps) 
          if step > 0:
                 self._length = max(0, (stop - start + step - 1) // step)
+             #(stop - start + step - 1) // step
+              # =(9 - 3 + 2 - 1) // 2
+              # =(7) // 2
+              # = 3
          else:
                 self._length = max(0, (stop - start + step + 1) // step)
+             #(stop - start + step + 1) // step 
+             # (1 - 10 - 3 + 1) // -3 
+             #(-11) // -3 
+            # 3
     @property
     def start(self):
         return self._start
@@ -75,16 +83,15 @@ class Range:
         """Return how many numbers are in this range."""
         return self.length
 
-    def __getitem__(self, index):
-        """Return the k-th element (supports negative indices like lists)."""
-        if index < 0:
-            index += len(self)   # turn negative index into positive
+   #index = -1
+        """Since index < 0, update it"""
+        """index = -1 + len(r1) = -1 + 6 = 5 """  
 
-        if not 0 <= index < self.length:   # make sure index is within valid range
-            raise IndexError("index out of range")
-
-        # formula for k-th term: start + (k * step)
-        return self.start + index * self.step
+        if index < 0 or index >= self.length:  # make sure index is within the range
+         raise IndexError("index out of range")
+        """If the user gave something too negative e.g. r1[-10] with len = 6"""
+        """-10 + 6 = -4 → still negative."""
+        """-4<0 → ✅ condition true → raises IndexError"""
     
     def __contains__(self, value):
      """Check if a value exists in the range."""
