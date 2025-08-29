@@ -51,5 +51,8 @@ class BirthdayParadox:
         return probability
 
     def show_probability(self): 
-        probablity=self.run()   
-        print(f"For {self.group_size} people → Probability ≈ {probablity:.3f}")
+         try:
+              probablity=self.run()   
+              print(f"For {self.group_size} people → Probability ≈ {probablity:.3f}")
+          except ZeroDivisionError:
+                print("Error: Number of simulations cannot be zero!")    
