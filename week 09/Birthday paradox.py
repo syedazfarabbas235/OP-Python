@@ -1,15 +1,53 @@
 import random
 
 class BirthdayParadox:
-    def __init__(self,group_size,simulations=100):
+    def __init__(self,group_size:int,simulations:int=100):
         """
         Initialize the simulation with:
         - group_size: number of people in the group
         - simulations: number of times to repeat the experiment
         """
-        self.group_size=group_size
-        self.simulations=simulations
+        # Call validation functions before assigning
+        self._validate_group_size(group_size) #calling a function here where errors were raised.
+        self._validate_simulations(simulations) #calling a function here where errors were raised.
 
+        # copy constructor
+        if isinstance(group_size,BirthdayParadox):
+            self._group_size=group_size._group_size
+            self._simulations=group_size._simulations
+        else:
+            self._group_size=group_size
+            self._simulations=simulations    
+          
+    @property 
+    def group_size(self):
+        return self._group_size
+    @group_size.setter
+    def group_size(self,value):
+        self._validate_group_size(value) #calling a function here where errors were raised.
+        self._group_size=value
+
+    @property 
+    def simulations(self):
+        return self._simulations
+    @simulations.setter
+    def simulations(self,value):
+        self._validate_simulations(value) #calling a function here where errors were raised.
+        self._simulations=value    
+
+     # Centralized validation functions
+    def _validate_group_size(self, value):
+        if not isinstance(value, int):
+            raise TypeError("group_size must be an integer")
+        if value <= 0:
+            raise ValueError("group_size must be greater than 0")  
+
+    def _validate_simulations(self, value):
+        if not isinstance(value, int):
+            raise TypeError("simulations must be an integer")
+        if value <= 0:
+            raise ValueError("simulations must not be 0 or less than 0")        
+        
     def make_birthdays(self):
         """
         Generate random birthdays for the group.
@@ -51,8 +89,9 @@ class BirthdayParadox:
         return probability
 
     def show_probability(self): 
-         try:
-              probablity=self.run()   
-              print(f"For {self.group_size} people → Probability ≈ {probablity:.3f}")
-          except ZeroDivisionError:
-                print("Error: Number of simulations cannot be zero!")    
+        probablity=self.run()   
+        print(f"For {self.group_size} people → Probability ≈ {probablity:.3f}")
+          
+              
+        
+              
