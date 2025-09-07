@@ -100,4 +100,37 @@ def summ_of_oddsquares(n):
 n=summ_of_oddsquares(8)
 print(f" sum of odd square is: {n}")
 
+
+""" R-1.8 Python allows negative integers to be used as indices into a sequence,
+such as a string. If string s has length n, and expression s[k] is used for in-
+dex −n ≤ k < 0, what is the equivalent index j ≥ 0 such that s[j] references
+the same element?"""
+
+# Example string
+s = "one-piece"
+n = len(s)  # length of the string
+
+# Loop through negative indices
+for k in range(-n, 0): #k=-9
+    j = n + k  # equivalent positive index formula to get same value
+    if s[k] == s[j]:
+        print(f"s[{k}] = s[{j}] = '{s[k]}'")
+
+
+""" R-1.9 What parameters should be sent to the range constructor, to produce a
+range with values 50, 60, 70, 80?"""
+
+r = range(50, 90, 10)
+for val in r:
+    print(val)
+
+
+""" R-1.10 What parameters should be sent to the range constructor, to produce a
+range with values 8, 6, 4, 2, 0, −2, −4, −6, −8"""
+
+r = range(8, -10, -2)
+for val in r:
+    print(val)
+
+
             
